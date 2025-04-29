@@ -140,7 +140,7 @@ void generate_random_data(int n) {
 
 
 Insertion Sort
-
+將一組資料分成兩部分，先設定成一部分是已排序的且只包含第一個元素，另一部分是未排序的。接著，Insertion Sort會從未排序的資料中取出一個元素，並把它插入到已排序的那一部分的正確位置，為了保證這個插入的正確性需要從已排序部分的最後一個元素開始比較，如果這個元素比待插入的值大，則將它向右移動一格，如此重複直到找到合適的位置，並排序直到完成。
 ```cpp
 template<class T>
 vector<T> insertsort(vector<T> a, int n){
@@ -159,7 +159,12 @@ vector<T> insertsort(vector<T> a, int n){
 ```
 
 Quick Sort
-
+1.找pivot
+先從當前數列找一個pivot，由於用的是三數取中值low、mid、high 三者中取中值，再把它交換到 high。
+2.根據pivot做比大小
+掃描從low到high之間的數字，把小於 pivot 的元素都移到左邊，大於的放到右邊
+3.遞迴
+對 pivot 左邊跟右邊的數列排序，並且重複這個過程值到元素被排序完成。
 ```cpp
 template<class T>
 vector<T> quicksort(vector<T> a, const int& front, const int& end, const bool& worst) {
@@ -201,7 +206,10 @@ void quicksortNormal(vector<T>& a, int left, int right){
 ```
 
 Merge Sort
-
+1.把元素切割成序列
+先將資料不斷地切割成越來越小的子序列，1000 500 ..... 1，直到每個子序列只包含一個元素為止
+2.合併
+兩兩合併序列，1 2 4 ....1000，並且在每次合併時都會以排序的方式將它們合併成一個有序的序列，這個過程會一直合併序列直到所有子序列都被合併成序列。
 ```cpp
 // 將左右陣列合併並排列
 template<class T>
@@ -249,7 +257,9 @@ void mergesort(const vector<T>& a, const int& front, const int& end){
 ```
 
 Heap Sort
-
+1.建立最大堆，將原始陣列重組成最大堆積結構，向前對每個節點進行比大小的操作，如果出現錯誤則是進行交換，確保所有子樹都符合最大堆的條件。
+2.排序階段，會一直重複如下操作
+將第一個值與「最後一個節點」交換位置，這樣最大值就被放到了陣列尾端，然後把最後一個節點視為排序成功，之後重複進行最大堆
 ```cpp
 template<class T>
 void maxheapify(vector<T>& a, const int& root, const int& len){
